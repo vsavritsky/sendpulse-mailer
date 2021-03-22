@@ -26,14 +26,16 @@ class SendPulseSmtpApiTransport extends AbstractSendPulseApiTransport
     protected function getEmailData(Email $email, Envelope $envelope)
     {
         return [
-            'html'=> base64_encode($email->getHtmlBody()),
-            'text'=> $email->getTextBody(),
-            'subject'=> $email->getSubject(),
-            'from'=> [
-                'email' => $envelope->getSender()->getAddress(),
-                'name'=> $envelope->getSender()->getName(),
-            ],
-            'to'=> $this->getRecipients($email, $envelope),
+            'email' => [
+                'html'=> base64_encode($email->getHtmlBody()),
+                'text'=> $email->getTextBody(),
+                'subject'=> $email->getSubject(),
+                'from'=> [
+                    'email' => $envelope->getSender()->getAddress(),
+                    'name'=> $envelope->getSender()->getName(),
+                ],
+                'to'=> $this->getRecipients($email, $envelope),
+            ]
         ];
     }
 
